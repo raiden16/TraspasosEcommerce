@@ -55,7 +55,7 @@
 
         Try
 
-            stQueryH = "Select T1.""ItemCode"",T1.""Quantity"",T2.""ManBtchNum"",T1.""Quantity""/T2.""SalPackUn"" as ""Package"" from ORDR T0 Inner Join RDR1 T1 on T1.""DocEntry""=T0.""DocEntry"" Inner Join OITM T2 on T2.""ItemCode""=T1.""ItemCode"" Inner Join OITB T3 on T3.""ItmsGrpCod""=T2.""ItmsGrpCod"" where T3.""ItmsGrpNam"" in ('TAPETES','FOLLAJE SINTETICO') and T0.""DocNum""='" & DocNum & "'"
+            stQueryH = "Select T1.""ItemCode"",T1.""Quantity"",T2.""ManBtchNum"",T1.""Quantity""/T2.""SalPackUn"" as ""Package"", case when T0.""CardCode""='XAXX010101002' then 'AMAZON' when T0.""CardCode""='XAXX010101003' then 'MERCADOLIBRE' else 'ECOMMERCE' end as ""Delivery"" from ORDR T0 Inner Join RDR1 T1 on T1.""DocEntry""=T0.""DocEntry"" Inner Join OITM T2 on T2.""ItemCode""=T1.""ItemCode"" Inner Join OITB T3 on T3.""ItmsGrpCod""=T2.""ItmsGrpCod"" where T3.""ItmsGrpNam"" in ('TAPETES','FOLLAJE SINTETICO') and T0.""DocNum""='" & DocNum & "'"
             oRecSetH.DoQuery(stQueryH)
 
             If oRecSetH.RecordCount > 0 Then
@@ -79,7 +79,7 @@
                     Quantity = oRecSetH.Fields.Item("Quantity").Value
                     Lote = oRecSetH.Fields.Item("ManBtchNum").Value
                     Boxes = oRecSetH.Fields.Item("Package").Value
-                    Delivery = "ECOMMERCE"
+                    Delivery = oRecSetH.Fields.Item("Delivery").Value
                     Package = oRecSetH.Fields.Item("Package").Value
 
 
@@ -165,7 +165,7 @@
 
             End If
 
-            stQueryH = "Select T1.""ItemCode"",T1.""Quantity"",T2.""ManBtchNum"",T1.""Quantity""/T2.""SalPackUn"" as ""Package"" from ORDR T0 Inner Join RDR1 T1 on T1.""DocEntry""=T0.""DocEntry"" Inner Join OITM T2 on T2.""ItemCode""=T1.""ItemCode"" Inner Join OITB T3 on T3.""ItmsGrpCod""=T2.""ItmsGrpCod"" where T3.""ItmsGrpNam"" in ('PASTO ARTIFICIAL') and T0.""DocNum""='" & DocNum & "'"
+            stQueryH = "Select T1.""ItemCode"",T1.""Quantity"",T2.""ManBtchNum"",T1.""Quantity""/T2.""SalPackUn"" as ""Package"", case when T0.""CardCode""='XAXX010101002' then 'AMAZON' when T0.""CardCode""='XAXX010101003' then 'MERCADOLIBRE' else 'ECOMMERCE' end as ""Delivery"" from ORDR T0 Inner Join RDR1 T1 on T1.""DocEntry""=T0.""DocEntry"" Inner Join OITM T2 on T2.""ItemCode""=T1.""ItemCode"" Inner Join OITB T3 on T3.""ItmsGrpCod""=T2.""ItmsGrpCod"" where T3.""ItmsGrpNam"" in ('PASTO ARTIFICIAL') and T0.""DocNum""='" & DocNum & "'"
             oRecSetH.DoQuery(stQueryH)
 
             If oRecSetH.RecordCount > 0 Then
@@ -189,7 +189,7 @@
                     Quantity = oRecSetH.Fields.Item("Quantity").Value
                     Lote = oRecSetH.Fields.Item("ManBtchNum").Value
                     Boxes = oRecSetH.Fields.Item("Package").Value
-                    Delivery = "ECOMMERCE"
+                    Delivery = oRecSetH.Fields.Item("Delivery").Value
                     Package = oRecSetH.Fields.Item("Package").Value
 
 
